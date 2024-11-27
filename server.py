@@ -37,7 +37,7 @@ class Credit(Resource):
         
         try:
             # Pass the parameters to the subprocess command
-            result = subprocess.run(['./credit', lower_key, upper_key], capture_output=True, text=True, check=True)
+            result = subprocess.run(['./credit.exe', lower_key, upper_key], capture_output=True, text=True, check=True)
             return jsonify({"output": result.stdout})
         except subprocess.CalledProcessError as e:
             return jsonify({"error": e.stderr}), 500
