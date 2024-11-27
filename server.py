@@ -40,4 +40,4 @@ class Credit(Resource):
             return jsonify({"error": e.stderr}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)  
+    app.run(port=8000)  
