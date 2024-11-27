@@ -32,12 +32,10 @@ class Credit(Resource):
         data = request.json
         lower_key = data.get('lower_key')
         upper_key = data.get('upper_key')
-        print(lower_key)
-        print(upper_key)
         
         try:
             # Pass the parameters to the subprocess command
-            result = subprocess.run(['./credit.exe', lower_key, upper_key], capture_output=True, text=True, check=True)
+            result = subprocess.run([os.path.join(os.getcwd(), 'credit.exe'), lower_key, upper_key], capture_output=True, text=True, check=True)
             return jsonify({"output": result.stdout})
         except subprocess.CalledProcessError as e:
             return jsonify({"error": e.stderr}), 500
