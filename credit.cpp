@@ -128,12 +128,28 @@ int main(int argc, char *argv[])
 
     std::vector<ChuyenKhoan> results = rangeSearchVector(data, lower_key, upper_key);
 
-    std::cout << "Total count: " << results.size() << std::endl;
+    std::cout << "["; // Start of JSON array
+    for (size_t i = 0; i < results.size(); ++i)
+    {
+        const ChuyenKhoan &record = results[i];
+        std::cout << "{"
+                  << "\"date_time\": \"" << record.date_time << "\", "
+                  << "\"trans_no\": " << record.trans_no << ", "
+                  << "\"credit\": " << record.credit << ", "
+                  << "\"debit\": " << record.debit << ", "
+                  << "\"detail\": \"" << record.detail << "\""
+                  << "}";
+        if (i < results.size() - 1)
+            std::cout << ", "; // Add comma if not the last element
+    }
+    std::cout << "]";
 
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-
-    std::cout << "Program execution time: " << duration.count() << " seconds." << std::endl;
+    // std::cout << "Total count: " << results.size() << std::endl;
+    //
+    // auto end = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> duration = end - start;
+    //
+    // std::cout << "Program execution time: " << duration.count() << " seconds." << std::endl;
 
     return 0;
 }
