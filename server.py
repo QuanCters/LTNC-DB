@@ -1,7 +1,10 @@
 import subprocess
-
+import os
 from flask import Flask, jsonify, request
 from flask_restx import Api, Resource, fields
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 api = Api(app, version='1.0', description="API for searching")
@@ -40,4 +43,5 @@ class Credit(Resource):
             return jsonify({"error": e.stderr}), 500
 
 if __name__ == '__main__':
-    app.run(port=8000)  
+    port = int(os.environ.get('PORT', 8000))
+    app.run(port=port, host='0.0.0.0')  
